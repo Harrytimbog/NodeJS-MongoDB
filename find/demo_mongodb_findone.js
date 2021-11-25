@@ -1,12 +1,14 @@
 var MongoClient = require("mongodb").MongoClient;
-var url = "mongodb://localhost:27017/mydb";
+var url = "mongodb://localhost:27017/";
+
+// Find the first document in the customers collection:
 
 MongoClient.connect(url, function (err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  dbo.createCollection("customers", function (err, res) {
+  dbo.collection("customers").findOne({}, function (err, result) {
     if (err) throw err;
-    console.log("Collection created!");
+    console.log(result.name);
     db.close();
   });
 });
